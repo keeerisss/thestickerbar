@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Peel &amp; Vow — Custom Sticker Vending Machines for Weddings</title>
+<meta name="description" content="Rent a charming sticker vending machine for your wedding. Guests pull a lever and take home a custom-designed sticker keepsake — your faces, your dates, your story." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blush: #f5e6df;
+    --cream: #faf6f1;
+    --ivory: #fffdf8;
+    --rose: #c98c7a;
+    --rose-dark: #a9604f;
+    --ink: #2a2420;
+    --muted: #756861;
+    --gold: #b89563;
+    --line: #e8ddd4;
+    --shadow: 0 30px 60px -25px rgba(74, 48, 38, .25);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--ivory);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -.01em;
+    line-height: 1.1;
+    margin: 0;
+  }
+  .script { font-family: 'Caveat', cursive; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255, 253, 248, .85);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 28px; max-width: 1160px; margin: 0 auto;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; letter-spacing: .5px; }
+  .logo-mark {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, var(--blush) 55%, var(--rose) 120%);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
+    display:grid; place-items:center; color:var(--rose-dark); font-size:16px;
+  }
+  .nav-links { display: flex; gap: 34px; font-size: 14px; }
+  .nav-links a { color: var(--ink); text-decoration: none; opacity: .75; transition: opacity .2s; }
+  .nav-links a:hover { opacity: 1; }
+  .btn {
+    display: inline-block; padding: 13px 26px; border-radius: 999px;
+    background: var(--ink); color: var(--ivory); text-decoration: none;
+    font-size: 14px; font-weight: 500; letter-spacing: .3px;
+    transition: transform .2s, box-shadow .2s, background .2s;
+    border: none; cursor: pointer;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 18px 30px -15px rgba(42, 36, 32, .5); background: var(--rose-dark); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--ivory); }
+  @media (max-width: 720px) { .nav-links { display:none; } }
+
+  /* Hero */
+  .hero {
+    position: relative; overflow: hidden;
+    padding: 90px 0 110px;
+    background:
+      radial-gradient(1100px 500px at 85% -10%, var(--blush) 0%, transparent 60%),
+      radial-gradient(800px 400px at 0% 110%, #f6ead3 0%, transparent 60%),
+      var(--ivory);
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.1fr .9fr; gap: 70px; align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--rose-dark); font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before, .eyebrow::after { content: ""; width: 24px; height: 1px; background: var(--rose); }
+  .hero h1 { font-size: clamp(44px, 6vw, 78px); margin-bottom: 22px; }
+  .hero h1 em { font-style: italic; color: var(--rose-dark); }
+  .hero p.lead {
+    font-size: 19px; color: var(--muted); max-width: 520px; margin: 0 0 32px;
+  }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-stats {
+    display: flex; gap: 34px; margin-top: 52px; padding-top: 32px; border-top: 1px solid var(--line);
+  }
+  .stat .num { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--ink); }
+  .stat .lab { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+
+  /* Vending machine illustration */
+  .machine-wrap { position: relative; display: grid; place-items: center; }
+  .machine {
+    width: 320px; height: 440px;
+    background: linear-gradient(180deg, #fff 0%, #fbeae2 100%);
+    border-radius: 28px;
+    box-shadow: var(--shadow), inset 0 0 0 1px rgba(0,0,0,.04);
+    padding: 18px;
+    position: relative;
+  }
+  .machine-top {
+    height: 54px; border-radius: 16px;
+    background: linear-gradient(180deg, var(--rose) 0%, var(--rose-dark) 100%);
+    display: grid; place-items: center;
+    color: #fff8ef; font-family: 'Cormorant Garamond', serif; font-size: 22px; letter-spacing: 2px;
+  }
+  .machine-screen {
+    margin-top: 14px; height: 230px; border-radius: 14px;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px var(--line);
+    padding: 14px;
+    display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 10px;
+  }
+  .sticker {
+    border-radius: 8px;
+    display: grid; place-items: center;
+    font-size: 22px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
+    transition: transform .4s;
+  }
+  .sticker:hover { transform: scale(1.1) rotate(-4deg); }
+  .s1 { background: #fde4d6; } .s2 { background: #e9dbc6; } .s3 { background: #f2d6d4; }
+  .s4 { background: #e3d7c0; } .s5 { background: #fbe9d8; } .s6 { background: #eecfc4; }
+  .s7 { background: #f4e2c9; } .s8 { background: #e5cfcd; } .s9 { background: #fbe0cb; }
+  .machine-knob {
+    margin-top: 20px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 12px;
+  }
+  .knob {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff, #d8b59a 60%, #a9604f);
+    box-shadow: 0 6px 14px -4px rgba(0,0,0,.3);
+  }
+  .slot {
+    flex: 1; margin: 0 16px; height: 34px; border-radius: 6px;
+    background: #2a2420;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,.4);
+  }
+  .coin {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #f7d488, #b89563);
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+  }
+  .tag {
+    position: absolute; top: -22px; right: -30px;
+    background: var(--ivory); padding: 14px 22px; border-radius: 999px;
+    box-shadow: var(--shadow);
+    font-family: 'Caveat', cursive; color: var(--rose-dark); font-size: 22px;
+    transform: rotate(6deg);
+  }
+  .floaty-sticker {
+    position: absolute; width: 82px; height: 82px; border-radius: 50%;
+    display: grid; place-items: center; font-size: 30px;
+    box-shadow: var(--shadow);
+    animation: float 6s ease-in-out infinite;
+  }
+  .floaty-1 { top: 20px; left: -30px; background: #fbe9d8; }
+  .floaty-2 { bottom: 40px; right: -20px; background: #ebd7c1; animation-delay: -3s; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-4deg); }
+    50% { transform: translateY(-14px) rotate(4deg); }
+  }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 60px; }
+    .machine-wrap { order: -1; }
+  }
+
+  /* Section base */
+  section { padding: 110px 0; }
+  .section-head { text-align: center; max-width: 680px; margin: 0 auto 64px; }
+  .section-head .eyebrow { justify-content: center; display: inline-flex; }
+  .section-head h2 { font-size: clamp(34px, 4.2vw, 52px); margin-bottom: 18px; }
+  .section-head p { color: var(--muted); font-size: 17px; margin: 0; }
+
+  /* How it works */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+  .step {
+    background: var(--cream); padding: 36px 28px; border-radius: 20px;
+    border: 1px solid var(--line);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .step:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+  .step-num {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    color: var(--rose-dark); font-size: 42px; line-height: 1; margin-bottom: 18px;
+  }
+  .step h3 { font-size: 24px; margin-bottom: 10px; }
+  .step p { color: var(--muted); font-size: 15px; margin: 0; }
+  @media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+
+  /* Templates gallery */
+  .gallery-section { background: var(--cream); }
+  .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .card {
+    aspect-ratio: 1/1; border-radius: 18px;
+    display: grid; place-items: center; text-align: center;
+    padding: 20px; position: relative;
+    box-shadow: var(--shadow);
+    transition: transform .4s;
+    overflow: hidden;
+  }
+  .card:hover { transform: translateY(-6px) rotate(-1deg); }
+  .card .emoji { font-size: 56px; margin-bottom: 8px; }
+  .card .title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; }
+  .card .sub { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+  .c1 { background: linear-gradient(135deg, #fbe5d6, #f5cdbc); }
+  .c2 { background: linear-gradient(135deg, #f3e5c8, #e6cf9f); }
+  .c3 { background: linear-gradient(135deg, #f0dfd9, #d9b5ac); }
+  .c4 { background: linear-gradient(135deg, #f9ecd3, #e8d2a8); }
+  .c5 { background: linear-gradient(135deg, #ede1d0, #c9b493); }
+  .c6 { background: linear-gradient(135deg, #fce0d4, #e8b4a2); }
+  .c7 { background: linear-gradient(135deg, #e9d7c4, #c5a888); }
+  .c8 { background: linear-gradient(135deg, #f7e4d4, #e4bba5); }
+  @media (max-width: 900px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+
+  /* Pricing */
+  .pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .plan {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 40px 32px;
+    position: relative;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .plan:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+  .plan.featured {
+    background: linear-gradient(180deg, #2a2420 0%, #3a2f28 100%);
+    color: var(--ivory);
+    border: none;
+    transform: scale(1.04);
+  }
+  .plan.featured:hover { transform: scale(1.04) translateY(-6px); }
+  .plan.featured .plan-desc { color: rgba(255, 253, 248, .7); }
+  .plan.featured .price-sub { color: rgba(255, 253, 248, .6); }
+  .plan.featured li { color: rgba(255, 253, 248, .85); }
+  .plan.featured li::before { color: var(--gold); }
+  .badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: var(--ivory);
+    padding: 6px 18px; border-radius: 999px;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  }
+  .plan-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin-bottom: 6px; }
+  .plan-desc { color: var(--muted); font-size: 14px; margin-bottom: 26px; min-height: 42px; }
+  .price { font-family: 'Cormorant Garamond', serif; font-size: 56px; line-height: 1; }
+  .price-sub { font-size: 13px; color: var(--muted); margin-top: 4px; margin-bottom: 30px; }
+  .plan ul { list-style: none; padding: 0; margin: 0 0 32px; }
+  .plan li { padding: 9px 0 9px 28px; position: relative; font-size: 15px; border-top: 1px solid rgba(0,0,0,.06); }
+  .plan.featured li { border-top: 1px solid rgba(255,255,255,.08); }
+  .plan li:first-child { border-top: none; }
+  .plan li::before { content: "✦"; position: absolute; left: 0; color: var(--rose); }
+  .plan .btn { width: 100%; text-align: center; }
+  .plan.featured .btn { background: var(--gold); }
+  .plan.featured .btn:hover { background: var(--ivory); color: var(--ink); }
+  @media (max-width: 900px) {
+    .pricing { grid-template-columns: 1fr; }
+    .plan.featured { transform: none; }
+    .plan.featured:hover { transform: translateY(-6px); }
+  }
+
+  /* Testimonials */
+  .testi-section { background: linear-gradient(180deg, var(--ivory) 0%, var(--blush) 100%); }
+  .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .quote {
+    background: var(--ivory); padding: 36px 30px; border-radius: 20px;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .quote::before {
+    content: "“";
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px; color: var(--rose);
+    position: absolute; top: -10px; left: 16px; line-height: 1;
+  }
+  .quote p { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; line-height: 1.4; color: var(--ink); margin: 0 0 22px; padding-top: 30px; }
+  .who { display: flex; align-items: center; gap: 14px; }
+  .avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blush), var(--rose));
+    display: grid; place-items: center;
+    color: #fff; font-weight: 500;
+  }
+  .who-name { font-size: 14px; font-weight: 500; }
+  .who-role { font-size: 12px; color: var(--muted); letter-spacing: .5px; }
+  @media (max-width: 900px) { .testimonials { grid-template-columns: 1fr; } }
+
+  /* FAQ */
+  .faq { max-width: 760px; margin: 0 auto; }
+  details {
+    border-bottom: 1px solid var(--line); padding: 24px 0;
+    cursor: pointer;
+  }
+  details summary {
+    list-style: none; display: flex; align-items: center; justify-content: space-between;
+    font-family: 'Cormorant Garamond', serif; font-size: 24px;
+    color: var(--ink);
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after {
+    content: "+"; font-size: 28px; color: var(--rose-dark); transition: transform .3s;
+  }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { color: var(--muted); margin: 16px 0 0; font-size: 15px; max-width: 640px; }
+
+  /* CTA / Contact */
+  .cta {
+    background: linear-gradient(135deg, #2a2420 0%, #4a3828 100%);
+    color: var(--ivory);
+    border-radius: 32px;
+    padding: 80px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::before, .cta::after {
+    content: ""; position: absolute; border-radius: 50%; opacity: .15;
+  }
+  .cta::before { width: 280px; height: 280px; background: var(--rose); top: -80px; left: -80px; }
+  .cta::after { width: 340px; height: 340px; background: var(--gold); bottom: -120px; right: -100px; }
+  .cta .eyebrow { color: var(--gold); position: relative; z-index: 1; }
+  .cta .eyebrow::before, .cta .eyebrow::after { background: var(--gold); }
+  .cta h2 { font-size: clamp(36px, 5vw, 56px); margin-bottom: 16px; position: relative; z-index: 1; }
+  .cta p { color: rgba(255, 253, 248, .75); max-width: 500px; margin: 0 auto 32px; position: relative; z-index: 1; }
+  .cta-form {
+    display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px;
+    max-width: 640px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .cta-form input {
+    padding: 16px 20px; border-radius: 999px; border: none;
+    background: rgba(255, 253, 248, .12);
+    color: var(--ivory); font-family: inherit; font-size: 14px;
+    border: 1px solid rgba(255, 253, 248, .2);
+  }
+  .cta-form input::placeholder { color: rgba(255, 253, 248, .5); }
+  .cta-form input:focus { outline: none; border-color: var(--gold); background: rgba(255, 253, 248, .18); }
+  .cta-form .btn { background: var(--gold); }
+  .cta-form .btn:hover { background: var(--ivory); color: var(--ink); }
+  @media (max-width: 720px) {
+    .cta { padding: 60px 28px; }
+    .cta-form { grid-template-columns: 1fr; }
+  }
+
+  /* Footer */
+  footer {
+    padding: 50px 0 40px; border-top: 1px solid var(--line);
+    margin-top: 80px;
+  }
+  .foot {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    font-size: 13px; color: var(--muted);
+  }
+  .foot a { color: var(--muted); text-decoration: none; margin-left: 22px; }
+  .foot a:hover { color: var(--ink); }
+
+  /* Utility */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s, transform .8s; }
+  .reveal.in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">
+      <div class="logo-mark">✦</div>
+      Peel &amp; Vow
+    </div>
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#templates">Templates</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#book" class="btn">Check availability</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Wedding Favours · Reimagined</div>
+      <h1>A sticker vending machine <em>made just for your&nbsp;day</em>.</h1>
+      <p class="lead">
+        Your faces. Your vows. Your in-jokes. We design custom stickers from our template library, load them into a charming retro vending machine, and wheel it into your venue. Guests pull the lever — and leave with a tiny piece of your love story.
+      </p>
+      <div class="hero-ctas">
+        <a href="#book" class="btn">Reserve your date</a>
+        <a href="#how" class="btn btn-ghost">See how it works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="num">240+</div><div class="lab">Weddings served</div></div>
+        <div class="stat"><div class="num">60</div><div class="lab">Design templates</div></div>
+        <div class="stat"><div class="num">4.98</div><div class="lab">Avg review score</div></div>
+      </div>
+    </div>
+    <div class="machine-wrap">
+      <div class="floaty-sticker floaty-1">💍</div>
+      <div class="floaty-sticker floaty-2">💌</div>
+      <div class="machine">
+        <div class="tag">just married!</div>
+        <div class="machine-top">PEEL &amp; VOW</div>
+        <div class="machine-screen">
+          <div class="sticker s1">💐</div>
+          <div class="sticker s2">🤍</div>
+          <div class="sticker s3">💍</div>
+          <div class="sticker s4">🥂</div>
+          <div class="sticker s5">✨</div>
+          <div class="sticker s6">🌿</div>
+          <div class="sticker s7">💌</div>
+          <div class="sticker s8">🕊️</div>
+          <div class="sticker s9">🎂</div>
+        </div>
+        <div class="machine-knob">
+          <div class="coin"></div>
+          <div class="slot"></div>
+          <div class="knob"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">How it works</div>
+      <h2>Four sweet steps to a keepsake your guests will actually keep.</h2>
+      <p>No glossy favour boxes destined for the bin. Just stickers people genuinely love — and a moment at your reception that becomes its own memory.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">i.</div><h3>Book your date</h3><p>Tell us your venue, date, and headcount. We'll hold the machine and confirm within 24 hours.</p></div>
+      <div class="step"><div class="step-num">ii.</div><h3>Choose &amp; customise</h3><p>Pick from 60+ templates and tailor each one with your names, date, illustrations, and photos.</p></div>
+      <div class="step"><div class="step-num">iii.</div><h3>We print &amp; load</h3><p>We print every sticker on premium vinyl, load the machine, and deliver it styled to match your theme.</p></div>
+      <div class="step"><div class="step-num">iv.</div><h3>Guests peel away</h3><p>A pull of the lever, a little mechanical clunk, a sticker falls into the tray. Hearts melt.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATES -->
+<section id="templates" class="gallery-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The collection</div>
+      <h2>A template for every kind of love story.</h2>
+      <p>Every design is fully customisable — swap colours, add your portraits, tweak the wording. Mix and match up to eight designs per machine.</p>
+    </div>
+    <div class="gallery">
+      <div class="card c1"><div><div class="emoji">🌹</div><div class="title">Everblooming</div><div class="sub">Florals · Botanicals</div></div></div>
+      <div class="card c2"><div><div class="emoji">✨</div><div class="title">Golden Hour</div><div class="sub">Art Deco · Gilded</div></div></div>
+      <div class="card c3"><div><div class="emoji">💍</div><div class="title">Classic Vows</div><div class="sub">Timeless · Elegant</div></div></div>
+      <div class="card c4"><div><div class="emoji">🥂</div><div class="title">Toast &amp; Cheers</div><div class="sub">Playful · Retro</div></div></div>
+      <div class="card c5"><div><div class="emoji">🌿</div><div class="title">Garden Party</div><div class="sub">Botanical · Whimsy</div></div></div>
+      <div class="card c6"><div><div class="emoji">💌</div><div class="title">Love Letters</div><div class="sub">Hand-drawn · Romantic</div></div></div>
+      <div class="card c7"><div><div class="emoji">🕊️</div><div class="title">Chapel &amp; Lace</div><div class="sub">Traditional · Church</div></div></div>
+      <div class="card c8"><div><div class="emoji">🎨</div><div class="title">Modern Muse</div><div class="sub">Minimalist · Bold</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Packages</div>
+      <h2>Honest pricing. No surprise fees on your big day.</h2>
+      <p>All packages include delivery, setup, collection, and a dedicated wedding coordinator. Travel outside the metro area is quoted separately.</p>
+    </div>
+    <div class="pricing">
+      <div class="plan">
+        <div class="plan-name">Intimate</div>
+        <div class="plan-desc">For gatherings under 80 guests. One machine, three designs.</div>
+        <div class="price">$480</div>
+        <div class="price-sub">flat fee · up to 250 stickers</div>
+        <ul>
+          <li>1 vending machine, 6-hour hire</li>
+          <li>3 custom sticker designs</li>
+          <li>Premium matte vinyl printing</li>
+          <li>Delivery, setup &amp; pickup</li>
+          <li>Design proofs within 5 days</li>
+        </ul>
+        <a href="#book" class="btn btn-ghost">Choose Intimate</a>
+      </div>
+      <div class="plan featured">
+        <div class="badge">Most loved</div>
+        <div class="plan-name">Classic</div>
+        <div class="plan-desc">Our most-booked package. Perfect for 80–180 guests with flair to spare.</div>
+        <div class="price">$780</div>
+        <div class="price-sub">flat fee · up to 500 stickers</div>
+        <ul>
+          <li>1 vending machine, full-day hire</li>
+          <li>6 custom sticker designs</li>
+          <li>Premium matte + holographic vinyl</li>
+          <li>Themed styling to match decor</li>
+          <li>Personalised signage &amp; prop coin</li>
+          <li>Unlimited design revisions</li>
+        </ul>
+        <a href="#book" class="btn">Choose Classic</a>
+      </div>
+      <div class="plan">
+        <div class="plan-name">Grand Affair</div>
+        <div class="plan-desc">Large celebrations, multiple machines, and a custom-built experience.</div>
+        <div class="price">$1,280</div>
+        <div class="price-sub">starting at · 180+ guests</div>
+        <ul>
+          <li>2 vending machines, full-day hire</li>
+          <li>8 custom designs per machine</li>
+          <li>All premium vinyl finishes</li>
+          <li>Custom machine wrap in your colours</li>
+          <li>On-site attendant for 4 hours</li>
+          <li>Guest sticker-book keepsake</li>
+        </ul>
+        <a href="#book" class="btn btn-ghost">Choose Grand</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Happy couples</div>
+      <h2>What our newlyweds say.</h2>
+    </div>
+    <div class="testimonials">
+      <div class="quote">
+        <p>The machine was the most talked-about thing at our wedding — more than the cake. A month later our niece still has her sticker on her water bottle.</p>
+        <div class="who"><div class="avatar">M</div><div><div class="who-name">Maya &amp; Daniel</div><div class="who-role">October 2026 · Tanah Merah</div></div></div>
+      </div>
+      <div class="quote">
+        <p>We gave Peel &amp; Vow a photo of our dog as ring-bearer. They turned it into the sweetest illustration. Every single guest took one.</p>
+        <div class="who"><div class="avatar">S</div><div><div class="who-name">Sophia &amp; Jack</div><div class="who-role">September 2026 · Sentosa</div></div></div>
+      </div>
+      <div class="quote">
+        <p>Our guests queued. They queued for a favour! The team was meticulous — every sticker was perfect and the setup felt so premium.</p>
+        <div class="who"><div class="avatar">A</div><div><div class="who-name">Aisha &amp; Marcus</div><div class="who-role">November 2026 · Raffles Hotel</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Questions, answered</div>
+      <h2>The things couples usually ask.</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>How far in advance should we book?</summary>
+        <p>We recommend 3–4 months ahead for weekend weddings, especially April–October. Weekday weddings can often be accommodated with 6 weeks' notice.</p>
+      </details>
+      <details>
+        <summary>Can we upload our own artwork?</summary>
+        <p>Absolutely. You can use a template as-is, personalise one with your details, or send us your own illustration or photo — we'll optimise it for print.</p>
+      </details>
+      <details>
+        <summary>Does the machine actually take coins?</summary>
+        <p>It does — but we load it with complimentary tokens so guests don't need to fumble for change. A small bowl of tokens sits next to the machine with custom signage.</p>
+      </details>
+      <details>
+        <summary>What space does the machine need?</summary>
+        <p>About 1m × 1m of floor space, near a power outlet. We can also run on battery if your venue is outdoors.</p>
+      </details>
+      <details>
+        <summary>What if we run out of stickers?</summary>
+        <p>Our packages are sized generously for your guest count and typically end the night with plenty left. Whatever remains is boxed up and sent home with you.</p>
+      </details>
+      <details>
+        <summary>Do you travel beyond the city?</summary>
+        <p>Yes — we travel island-wide and to select destination weddings. Travel is quoted separately based on distance and setup complexity.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="book">
+  <div class="wrap">
+    <div class="cta">
+      <div class="eyebrow">Reserve your date</div>
+      <h2>Let's make your wedding the one everyone's still talking about.</h2>
+      <p>Tell us your date and we'll send availability, a design lookbook, and a no-obligation quote within 24 hours.</p>
+      <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Thank you! ✦ We\\'ll be in touch';">
+        <input type="text" placeholder="Your name" required />
+        <input type="email" placeholder="Email address" required />
+        <button class="btn" type="submit">Send enquiry</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div class="logo"><div class="logo-mark">✦</div> Peel &amp; Vow</div>
+    <div>© 2026 Peel &amp; Vow. Made with love for lovers.
+      <a href="#">Instagram</a>
+      <a href="#">hello@peelandvow.co</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: .12 });
+  document.querySelectorAll('section .section-head, .step, .card, .plan, .quote, details, .cta')
+    .forEach(el => { el.classList.add('reveal'); io.observe(el); });
+</script>
+
+</body>
+</html>
